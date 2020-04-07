@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.widget.Toast;
 
 /**
  * Definitions
@@ -15,7 +17,7 @@ import android.os.Bundle;
  * active lifetime : means between onResume and onPause handlers
  */
 
-public class StateChangeMonitoringActivity extends AppCompatActivity {
+public class StateChangeMonitoringActivity extends AppCompatActivity implements MySkeletonFragment.OnFragmentInteractionListener {
 
     final static String MY_FRAGMENT_TAG_LIST_CONTAINER = "detail_fragment";
     final static String MY_FRAGMENT_TAG_DETAIL = "detail_fragment";
@@ -40,6 +42,7 @@ public class StateChangeMonitoringActivity extends AppCompatActivity {
                 fragmentTransaction.add(R.id.list_container, new MySkeletonFragment(), MY_FRAGMENT_TAG_LIST_CONTAINER);
                 fragmentTransaction.add(R.id.details_container, new MySkeletonFragment());
                 fragmentTransaction.commitNow(); // Using commitNow is the preferred alternative, but is only available if the current transaction is not being added to the back stack.
+                // when using commitNow the fragment transaction can not added to the back stack -> if we want to add fragment in back stack use "commit"
 
                 //*** removing a fragment dynamically
                 //Fragment fragment = manager.findFragmentByTag(MY_FRAGMENT_TAG_DETAIL);
@@ -51,6 +54,16 @@ public class StateChangeMonitoringActivity extends AppCompatActivity {
                 //*** replace a fragment dynamically
                 //fragmentTransaction.replace(R.id.details_container,new MySkeletonFragment(),MY_FRAGMENT_TAG_LIST_CONTAINER);
                 //fragmentTransaction.commitNow();
+
+                //*** use this code before commit when you want to have a previous layout when pressing back button
+                //fragmentTransaction.addToBackStack(MY_FRAGMENT_TAG_DETAIL);
+
+                //*** use animation methods before calling add or remove methods
+                //*** use this line of code when you want to have animation when a Fragment has opened
+                //fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                //*** or when you want use a custom animation use the below code
+                //fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
+
             } else {
                 // Get references to Fragments that have already been restored.
             }
@@ -180,4 +193,12 @@ public class StateChangeMonitoringActivity extends AppCompatActivity {
             // The system is beginning to feel memory pressure.
         }
     }
+
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        Toast.makeText(this, "the button in fragment has pressed", Toast.LENGTH_SHORT).show();
+    }
+
+
 }

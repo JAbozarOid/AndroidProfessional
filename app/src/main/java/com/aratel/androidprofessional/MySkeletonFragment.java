@@ -1,6 +1,7 @@
 package com.aratel.androidprofessional;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,9 +11,19 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 public class MySkeletonFragment extends Fragment {
+
+    //When your Fragment needs to share events with its host Activity (such as signaling UI selections),
+    //it’s good practice to create a callback interface within the Fragment that a host Activity must implement.
+    public interface OnFragmentInteractionListener {
+        // TODO update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
+
+    private OnFragmentInteractionListener mListener;
 
     public MySkeletonFragment() {
         // Required empty public constructor
@@ -24,6 +35,12 @@ public class MySkeletonFragment extends Fragment {
         super.onAttach(context);
         // Get a reference to a Context representing
         // the parent component
+
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + "must implement OnFragmentInteractionListener");
+        }
     }
 
     // Called to do the initial creation of the Fragment.
@@ -39,7 +56,16 @@ public class MySkeletonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Create, or inflate the Fragment's UI, and return it.
         // If this Fragment has no UI then return null.
-        return inflater.inflate(R.layout.fragment_my_skeleton, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_my_skeleton, container, false);
+        Button btnFragment = view.findViewById(R.id.btn_fragment);
+        btnFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onButtonPressed(null);
+            }
+        });
+        return  view;
     }
 
     // Called once the parent Activity and the Fragment's UI have
@@ -127,5 +153,14 @@ public class MySkeletonFragment extends Fragment {
         // Clean up any references to the parent Activity
         // including references to its Views or classes. Typically setting
         // those references to null.
+
+        mListener = null;
     }
+
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
 }
