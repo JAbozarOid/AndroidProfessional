@@ -1,14 +1,16 @@
-package com.aratel.androidprofessional;
+package com.aratel.androidprofessional.fragmentwithui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import com.aratel.androidprofessional.R;
+import com.aratel.androidprofessional.fragmentwithui.MySkeletonFragment;
 
 /**
  * Definitions

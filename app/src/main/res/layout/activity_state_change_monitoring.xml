@@ -9,7 +9,7 @@
     <!-- ***start static layouts*** -->
 <!--    <fragment-->
 <!--        android:id="@+id/my_list_fragment"-->
-<!--        android:name="com.aratel.androidprofessional.MySkeletonFragment"-->
+<!--        android:name="com.aratel.androidprofessional.fragmentwithui.MySkeletonFragment"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="match_parent"-->
 <!--        android:layout_weight="1"-->
@@ -17,7 +17,7 @@
 
 <!--    <fragment-->
 <!--        android:id="@+id/details_fragment"-->
-<!--        android:name="com.aratel.androidprofessional.MySkeletonFragment"-->
+<!--        android:name="com.aratel.androidprofessional.fragmentwithui.MySkeletonFragment"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="match_parent"-->
 <!--        android:layout_weight="3"-->
